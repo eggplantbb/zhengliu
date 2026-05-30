@@ -3,6 +3,6 @@ services:
     name: maoxuan-distill
     runtime: node
     plan: free
-    buildCommand: if [ ! -d vendor/MaoZeDongAnthology/src ]; then rm -rf vendor/MaoZeDongAnthology && git clone --depth 1 https://github.com/weiyinfu/MaoZeDongAnthology.git vendor/MaoZeDongAnthology; fi && npm install --include=optional && npm run build
+    buildCommand: if [ ! -d vendor/MaoZeDongAnthology/src ]; then rm -rf vendor/MaoZeDongAnthology && git clone --depth 1 https://github.com/weiyinfu/MaoZeDongAnthology.git vendor/MaoZeDongAnthology; fi && rm -f package-lock.json client/package-lock.json && npm install --include=optional && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
