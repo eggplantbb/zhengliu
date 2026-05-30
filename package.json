@@ -1,0 +1,25 @@
+{
+  "name": "maoxuan-distill",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "npm run dev -w client",
+    "dev:server": "npm run dev -w server",
+    "build:quotes": "tsx scripts/build-quotes-index.ts",
+    "build:client": "npm run build -w client",
+    "build:server": "npm run build -w server",
+    "build": "npm run build:quotes && npm run build:client && npm run build:server",
+    "start": "npm run start -w server",
+    "postinstall": "npm run build:quotes || true"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "tsx": "^4.19.3"
+  }
+}
