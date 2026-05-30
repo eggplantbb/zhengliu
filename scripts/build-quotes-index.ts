@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -110,8 +111,16 @@ function parseArticle(filePath: string, filename: string): Quote[] {
 
 function main() {
   if (!fs.existsSync(srcDir)) {
-    console.error(`Anthology not found at ${srcDir}`);
-    console.error('Run: git clone https://github.com/weiyinfu/MaoZeDongAnthology.git vendor/MaoZeDongAnthology');
+    console.warn(`Anthology not found at ${srcDir}`);
+    console.warn('Cloning MaoZeDongAnthology into vendor/MaoZeDongAnthology...');
+    execSync(
+      'git clone --depth 1 https://github.com/weiyinfu/MaoZeDongAnthology.git vendor/MaoZeDongAnthology',
+      { cwd: root, stdio: 'inherit' },
+    );
+  }
+
+  if (!fs.existsSync(srcDir)) {
+    console.error(`Anthology still not found at ${srcDir}`);
     process.exit(1);
   }
 
